@@ -1,7 +1,7 @@
 let candidates = []; // Empty list (names will be loaded from JSON)
 
 // Fetch names from names.json
-fetch('names.json')
+fetch('name.json')
     .then(response => response.json())
     .then(data => {
         candidates = data.map(name => ({ name: name, votes: 0 }));
