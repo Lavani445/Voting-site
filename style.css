@@ -1,50 +1,88 @@
+/* General Page Styling */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: #f5f5f5;
-    color: #333;
-    margin: 20px;
-}
-
-.container {
-    max-width: 800px;
-    margin: auto;
-}
-
-h1 {
-    font-size: 40px;
-    color: #4CAF50;
-}
-
-.big-button {
-    display: block;
-    width: 80%;
-    padding: 20px;
-    margin: 20px auto;
-    font-size: 28px;
-    border: none;
-    border-radius: 12px;
-    background-color: #4CAF50;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
     color: white;
-    cursor: pointer;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.big-button:hover {
-    background-color: #45a049;
+/* Container for the Voting Section */
+.container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    max-width: 700px;
+    width: 90%;
 }
 
+/* Title Styling */
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Timer Styling */
+#timer {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Candidate List */
+#candidateList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Individual Candidate Card */
 .candidate {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
-    margin: 10px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, background 0.3s ease;
 }
 
+.candidate:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* Candidate Name Styling */
+.candidate span {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+/* Vote Button */
 .vote-btn {
-    padding: 10px 20px;
-    font-size: 24px;
+    font-size: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: #ff4757;
+    color: white;
     cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.vote-btn:hover {
+    background: #e84118;
+}
+
+/* Footer Message */
+footer {
+    margin-top: 2rem;
+    font-size: 1rem;
+    opacity: 0.8;
 }
