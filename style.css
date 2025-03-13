@@ -1,21 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+/* Reset and full-page center */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4e54c8, #8f94fb); /* Gradient background */
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Voting</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+/* Main container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 1s ease-in-out;
+}
 
-<body>
-    <div class="container">
-        <h1 class="main-title">Who Are You?</h1>
-        <div class="button-group">
-            <button onclick="location.href='vote.html'" class="btn boy-btn">I am a Boy</button>
-            <button onclick="location.href='girl.html'" class="btn girl-btn">I am a Girl</button>
-        </div>
-    </div>
-</body>
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
-</html>
+/* Title styling */
+.main-title {
+    font-size: 4rem; /* Large text */
+    margin-bottom: 3rem; /* Space between title and buttons */
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Button container */
+.button-group {
+    display: flex;
+    gap: 3rem; /* Space between buttons */
+}
+
+/* Button styling */
+.btn {
+    padding: 20px 50px; /* Bigger buttons */
+    font-size: 2rem; /* Bigger text */
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Boy button style */
+.boy-btn {
+    background: #ff4757; /* Red tone */
+}
+
+/* Girl button style */
+.girl-btn {
+    background: #2ed573; /* Green tone */
+}
+
+/* Button hover effect */
+.btn:hover {
+    transform: scale(1.1); /* Button grows slightly */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
