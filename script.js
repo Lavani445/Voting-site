@@ -11,15 +11,15 @@ if (!endTime) {
 let candidates = [];
 
 // Fetch and display candidates from the new simple JSON format
-fetch('names.json')
+fetch('candidates.json')
     .then(response => response.json())
     .then(data => {
-        candidates = data.map(name => ({ name })); // Convert to object format
+        candidates = data.map(name => ({ name }));
         displayCandidates();
     })
     .catch(error => console.error('❌ Error loading candidates:', error));
 
-// Countdown Timer: Displays real-time countdown
+// Countdown Timer
 function countdown() {
     const now = new Date().getTime();
     const timeLeft = endTime - now;
@@ -56,7 +56,7 @@ function displayCandidates() {
     });
 }
 
-// Handles the voting process
+// Vote Function
 function vote(candidateName) {
     if (localStorage.getItem("voted")) {
         alert("❌ You have already voted!");
@@ -69,8 +69,6 @@ function vote(candidateName) {
     const votes = JSON.parse(localStorage.getItem("votes")) || {};
     votes[candidateName] = (votes[candidateName] || 0) + 1;
     localStorage.setItem("votes", JSON.stringify(votes));
-
-    console.log(`✅ Vote registered for: ${candidateName}`);
 }
 
 // Lock voting after the timer ends
