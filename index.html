@@ -3,23 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom Voting</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="hero-section">
-        <div class="content">
-            <h1 class="main-heading">Welcome to the Classroom Voting!</h1>
-            <p class="sub-heading">Choose your identity to continue:</p>
+    <div class="container">
+        <h1>Welcome to the Classroom Voting!</h1>
+        <p>Are you a boy or a girl?</p>
+        <div class="button-container">
+            <button onclick="location.href='vote.html'">I’m a Boy</button>
+            <button onclick="showGirlOptions()">I’m a Girl</button>
+        </div>
 
-            <div class="button-container">
-                <button onclick="location.href='vote.html'" class="btn boy-btn">I am a Boy</button>
-                <button onclick="location.href='girl.html'" class="btn girl-btn">I am a Girl</button>
-            </div>
+        <div id="girl-options" class="hidden">
+            <button onclick="location.href='vote.html'">Vote for the Most Handsome Boy</button>
+            <button onclick="location.href='register.html'">Register for Best Girl Contest</button>
         </div>
     </div>
+
+    <script>
+        function showGirlOptions() {
+            document.getElementById('girl-options').classList.remove('hidden');
+        }
+    </script>
 </body>
 
 </html>
