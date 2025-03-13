@@ -4,57 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Voting Page</title>
+    <title>Welcome to Voting!</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #4e54c8, #8f94fb);
-            color: white;
-            text-align: center;
-        }
-
-        .container {
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
-
-        .btn {
-            display: block;
-            margin: 20px 0;
-            padding: 15px;
-            font-size: 1.2rem;
-            color: white;
-            background: #6a11cb;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-        }
-    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Who are you?</h1>
-        <a href="mainvoting.html" class="btn">I am a Boy</a>
-        <a href="girl-options.html" class="btn">I am a Girl</a>
+        <h1>🎉 Welcome to the Classroom Voting! 🎉</h1>
+        <p>Are you a boy or a girl?</p>
+
+        <div class="button-container">
+            <button onclick="window.location.href='vote.html'">👦 I'm a Boy (Vote Now)</button>
+            <button onclick="showGirlOptions()">👧 I'm a Girl</button>
+        </div>
+
+        <div id="girlOptions" style="display: none;">
+            <button onclick="window.location.href='vote.html'">🗳️ Vote Now</button>
+            <button onclick="window.location.href='register.html'">📋 Register for Beauty Contest</button>
+        </div>
     </div>
+
+    <script>
+        function showGirlOptions() {
+            document.getElementById('girlOptions').style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>
