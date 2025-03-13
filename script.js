@@ -1,110 +1,53 @@
-// Fetch candidates from external JSON (simplified format)
-fetch('candidates.json')
-    .then(response => response.json())
-    .then(names => {
-        // Convert names into candidate objects with votes
-        const candidates = names.map(name => ({ name, votes: 0 }));
-        displayCandidates(candidates);
-    })
-    .catch(error => console.error('Error loading candidates:', error));
+// Load Candidates
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("candidates.json")
+        .then(response => response.json())
+        .then(data => displayCandidates(data))
+        .catch(err => console.error("Error loading candidates:", err));
+});
 
-// Display candidates with vote buttons
+// Display Candidates
 function displayCandidates(candidates) {
-    const candidateList = document.getElementById('candidateList');
-    candidateList.innerHTML = '';
-
-    candidates.sort((a, b) => b.votes - a.votes); // Sort by votes
-
-    candidates.forEach(candidate => {
-        const candidateDiv = document.createElement('div');
-        candidateDiv.className = 'candidate';
-        candidateDiv.innerHTML = `
-            <span>${candidate.name}</span>
-            <button class="vote-btn" onclick="vote('${candidate.name}')">⬆️ Vote</button>
+    const list = document.getElementById("candidateList");
+    candidates.forEach(name => {
+        const div = document.createElement("div");
+        div.className = "candidate";
+        div.innerHTML = `
+            <span>${name}</span>
+            <button onclick="vote('${name}')">⬆️ Vote</button>
         `;
-        candidateList.appendChild(candidateDiv);
+        list.appendChild(div);
     });
 }
 
-// Vote function (stores in localStorage)
-function vote(candidateName) {
-    if (localStorage.getItem("voted")) {
-        alert("❌ You have already voted!");
-        return;
-    }
-
-    // Record vote
-    alert(`✅ You voted for ${candidateName}!`);
-    localStorage.setItem("voted", "true");
-
-    // Update votes in localStorage
-    let votes = JSON.parse(localStorage.getItem("votes")) || {};
-    votes[candidateName] = (votes[candidateName] || 0) + 1;
-    localStorage.setItem("votes", JSON.stringify(votes));
-    location.reload();
-}
-
-
-// Store Votes in Local Storage
-if (!localStorage.getItem("votes")) {
-    const initialVotes = candidates.map(name => ({ name, votes: 0 }));
-    localStorage.setItem("votes", JSON.stringify(initialVotes));
-}
-
-// Load Candidates and Display
-function loadCandidates() {
-    const candidatesContainer = document.getElementById("candidatesContainer");
-    let storedVotes = JSON.parse(localStorage.getItem("votes"));
-
-    // Sort by votes (Highest at the top)
-    storedVotes.sort((a, b) => b.votes - a.votes);
-
-    candidatesContainer.innerHTML = "";
-
-    storedVotes.forEach((candidate, index) => {
-        const candidateDiv = document.createElement("div");
-        candidateDiv.className = "candidate";
-        candidateDiv.innerHTML = `
-            <span>${candidate.name}</span>
-            <button class="vote-btn" onclick="vote('${candidate.name}')">⬆️ Vote</button>
-        `;
-        candidatesContainer.appendChild(candidateDiv);
-    });
-}
-
-// Vote Function
+// Handle Votes
 function vote(name) {
-    let storedVotes = JSON.parse(localStorage.getItem("votes"));
-
-    if (localStorage.getItem("hasVoted")) {
-        alert("❌ You have already voted!");
-        return;
-    }
-
-    storedVotes = storedVotes.map(candidate =>
-        candidate.name === name ? { ...candidate, votes: candidate.votes + 1 } : candidate
-    );
-
-    localStorage.setItem("votes", JSON.stringify(storedVotes));
-    localStorage.setItem("hasVoted", "true");
     alert(`✅ You voted for ${name}!`);
-    loadCandidates();
 }
 
-// Register for Best Girl Contest
-function registerName(event) {
-    event.preventDefault();
-    const girlName = document.getElementById("girlName").value.trim();
-    if (!girlName) return alert("❌ Please enter a valid name.");
-
-    const registeredGirls = JSON.parse(localStorage.getItem("registeredGirls")) || [];
-    registeredGirls.push(girlName);
-    localStorage.setItem("registeredGirls", JSON.stringify(registeredGirls));
-
-    document.getElementById("confirmationMessage").style.display = "block";
-    document.getElementById("registerForm").reset();
-    alert(`✅ You are registered as ${girlName}`);
+// Timer
+function countdown() {
+    const endTime = Date.now() + 2 * 24 * 60 * 60 * 1000;
+    function update() {
+        const timeLeft = endTime - Date.now();
+        if (timeLeft <= 0) {
+            document.getElementById("timer").innerText = "Voting has ended!";
+        } else {
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("timer").innerText = `Ends in: ${hours}h ${minutes}m`;
+            setTimeout(update, 1000);
+        }
+    }
+    update();
 }
+countdown();
 
-// Load candidates when page is loaded
-if (window.location.pathname.includes("vote.html")) loadCandidates();
+// Handle Girl Registration
+document.addEventListener("submit", (e) => {
+    if (e.target.id === "registerForm") {
+        e.preventDefault();
+        const name = document.getElementById("girlName").value;
+        alert(`✅ Registered: ${name}`);
+    }
+});
