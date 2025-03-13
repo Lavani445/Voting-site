@@ -1,5 +1,49 @@
-// Candidate List (Edit this to add names)
-const candidates = ["Aryan", "Kabir", "Rohan", "Sameer", "Aditya"];
+// Fetch candidates from external JSON (simplified format)
+fetch('candidates.json')
+    .then(response => response.json())
+    .then(names => {
+        // Convert names into candidate objects with votes
+        const candidates = names.map(name => ({ name, votes: 0 }));
+        displayCandidates(candidates);
+    })
+    .catch(error => console.error('Error loading candidates:', error));
+
+// Display candidates with vote buttons
+function displayCandidates(candidates) {
+    const candidateList = document.getElementById('candidateList');
+    candidateList.innerHTML = '';
+
+    candidates.sort((a, b) => b.votes - a.votes); // Sort by votes
+
+    candidates.forEach(candidate => {
+        const candidateDiv = document.createElement('div');
+        candidateDiv.className = 'candidate';
+        candidateDiv.innerHTML = `
+            <span>${candidate.name}</span>
+            <button class="vote-btn" onclick="vote('${candidate.name}')">⬆️ Vote</button>
+        `;
+        candidateList.appendChild(candidateDiv);
+    });
+}
+
+// Vote function (stores in localStorage)
+function vote(candidateName) {
+    if (localStorage.getItem("voted")) {
+        alert("❌ You have already voted!");
+        return;
+    }
+
+    // Record vote
+    alert(`✅ You voted for ${candidateName}!`);
+    localStorage.setItem("voted", "true");
+
+    // Update votes in localStorage
+    let votes = JSON.parse(localStorage.getItem("votes")) || {};
+    votes[candidateName] = (votes[candidateName] || 0) + 1;
+    localStorage.setItem("votes", JSON.stringify(votes));
+    location.reload();
+}
+
 
 // Store Votes in Local Storage
 if (!localStorage.getItem("votes")) {
