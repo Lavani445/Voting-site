@@ -1,59 +1,73 @@
-let candidates = []; // Empty list (names will be loaded from JSON)
-
-// Fetch names from names.json
-fetch('names.json')
-    .then(response => response.json())
-    .then(data => {
-        candidates = data.map(name => ({ name: name, votes: 0 }));
-        displayCandidates();
-    });
-
-// Function to display candidates in a table
-function displayCandidates() {
-    const candidateList = document.getElementById("candidates");
-    candidateList.innerHTML = "";  // Clear previous list
-
-    candidates.forEach((candidate, index) => {
-        let row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${candidate.name}</td>
-            <td><button class="vote-btn" onclick="vote(${index})">⬆️ Vote</button></td>
-        `;
-        candidateList.appendChild(row);
-    });
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-// Prevent multiple votes using LocalStorage
-function vote(index) {
-    if (localStorage.getItem("voted")) {
-        alert("You have already voted!");
-        return;
+/* Container to center everything */
+.container {
+    background: white;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Timer */
+#timer {
+    font-size: 18px;
+    color: #d9534f;
+    margin-bottom: 20px;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #007BFF;
+    color: white;
+}
+
+/* Vote button */
+.vote-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.vote-btn:hover {
+    background: #218838;
+}
+
+/* Mobile friendly */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
     }
-    candidates[index].votes += 1;
-    localStorage.setItem("voted", "true");
-    updateRanking();
-}
-
-// Update ranking without showing exact votes
-function updateRanking() {
-    candidates.sort((a, b) => b.votes - a.votes);
-    displayCandidates();
-}
-
-// Countdown Timer (2 days)
-const endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
-function countdown() {
-    const now = new Date().getTime();
-    const timeLeft = endTime - now;
-
-    if (timeLeft <= 0) {
-        document.getElementById("timer").innerHTML = "Voting has ended!";
-    } else {
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("timer").innerHTML = `Voting ends in: ${days}d ${hours}h ${minutes}m`;
-        setTimeout(countdown, 1000);
+    .container {
+        width: 100%;
+        padding: 15px;
     }
 }
-countdown();
