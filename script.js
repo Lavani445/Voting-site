@@ -12,13 +12,41 @@ if (!endTime) {
 
 let candidates = []; // Empty list (names will be loaded from JSON)
 
-// Fetch names from names.json
-fetch('name.json')
+// Fetch candidates from a JSON file and display them
+fetch('candidates.json')
     .then(response => response.json())
-    .then(data => {
-        candidates = data.map(name => ({ name: name, votes: 0 })); // Convert names into objects
-        displayCandidates();
-    });
+    .then(candidates => {
+        const candidateList = document.getElementById('candidateList');
+
+        // Clear existing candidates (if any)
+        candidateList.innerHTML = '';
+
+        // Create a card for each candidate
+        candidates.forEach(candidate => {
+            const candidateDiv = document.createElement('div');
+            candidateDiv.className = 'candidate';
+            candidateDiv.innerHTML = `
+                <span class="candidate-name">${candidate.name}</span>
+                <button class="vote-btn" onclick="vote('${candidate.name}')">Vote</button>
+            `;
+            candidateList.appendChild(candidateDiv);
+        });
+    })
+    .catch(error => console.error('Error loading candidates:', error));
+
+// Function to register a vote
+function vote(candidateName) {
+    alert(`✅ You voted for ${candidateName}!`);
+
+    // Optional: Send vote to a database or local storage
+    console.log(`Vote registered for: ${candidateName}`);
+
+    // Example: Save vote to localStorage (optional)
+    const votes = JSON.parse(localStorage.getItem('votes')) || [];
+    votes.push(candidateName);
+    localStorage.setItem('votes', JSON.stringify(votes));
+}
+
 
 // Function to display candidates in a table
 function displayCandidates() {
