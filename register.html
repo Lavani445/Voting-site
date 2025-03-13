@@ -3,27 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register for Best Girl Contest</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>✍️ Register for Best Girl Contest</h1>
-        <p>Enter your name to participate in the upcoming "Best Girl" contest!</p>
+    <div class="homepage-container">
+        <h1>Register for the Best Girl Contest</h1>
+        <p>Enter your name to participate:</p>
 
-        <form id="registerForm" onsubmit="registerName(event)">
-            <label for="girlName">Your Name:</label>
-            <input type="text" id="girlName" required placeholder="Enter your name">
-            <button type="submit">✅ Register</button>
-        </form>
+        <input type="text" id="girlName" placeholder="Your Name" class="input-box">
+        <button onclick="registerGirl()" class="big-btn">Submit</button>
 
-        <p id="confirmationMessage" style="display: none;">🎉 You are successfully registered!</p>
-
-        <button class="big-button" onclick="location.href='vote.html'">🗳️ Go to Voting</button>
+        <p id="successMessage" class="hidden">✅ You’re Registered!</p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function registerGirl() {
+            const girlName = document.getElementById('girlName').value.trim();
+            if (!girlName) {
+                alert("Please enter your name.");
+                return;
+            }
+
+            // Save the registered name to localStorage (or use JSON if needed)
+            let girls = JSON.parse(localStorage.getItem('registeredGirls')) || [];
+            girls.push(girlName);
+            localStorage.setItem('registeredGirls', JSON.stringify(girls));
+
+            // Show confirmation message
+            document.getElementById('successMessage').style.display = 'block';
+        }
+    </script>
+
 </body>
 
 </html>
