@@ -148,6 +148,49 @@ document.getElementById('submitComment').addEventListener('click', () => {
 });
 
 // Display Comments (Admin sees IPs)
+ // Get User IP Address (for admin view only)
+function getUserIP(callback) {
+    fetch('https://api64.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => callback(data.ip))
+        .catch(error => console.error('Error fetching IP:', error));
+}
+
+// Check if user is Admin
+function isAdmin() {
+    return localStorage.getItem('isAdmin') === 'true';
+}
+
+// Handle Comment Submission
+document.getElementById('submitComment').addEventListener('click', () => {
+    const commentInput = document.getElementById('commentInput');
+    const commentText = commentInput.value.trim();
+
+    if (!commentText) {
+        alert('Please enter a comment before submitting.');
+        return;
+    }
+
+    // Get User IP and Store Comment
+    getUserIP((userIP) => {
+        const comment = {
+            text: commentText,
+            timestamp: new Date().toLocaleString(),
+            ip: userIP
+        };
+
+        // Save comment to Local Storage
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        comments.push(comment);
+        localStorage.setItem('comments', JSON.stringify(comments));
+
+        // Display comments and clear input
+        displayComments();
+        commentInput.value = '';
+    });
+});
+
+// Display Comments (IP is only visible to admin)
 function displayComments() {
     const commentsList = document.getElementById('commentsList');
     commentsList.innerHTML = '';
@@ -157,19 +200,15 @@ function displayComments() {
     comments.forEach(comment => {
         const li = document.createElement('li');
         li.innerHTML = `
-            <strong>${comment.timestamp}</strong>: ${comment.text}
+            <p>${comment.text}</p>
+            <small>${comment.timestamp}</small>
             ${isAdmin() ? `<em>(IP: ${comment.ip})</em>` : ''}
         `;
         commentsList.appendChild(li);
     });
 }
 
-// Simulate Admin Access (Replace with real logic if needed)
-function isAdmin() {
-    return localStorage.getItem('isAdmin') === 'true';
-}
-
-// Enable Admin (For Testing - Open Console and Run This)
+// Set Admin Access (Open DevTools and run this ONCE to become admin)
 localStorage.setItem('isAdmin', 'true');
 
 // Load comments on page load
