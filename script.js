@@ -1,17 +1,27 @@
-// List of candidates
-const candidates = [
-    { name: "Alice", votes: 0 },
-    { name: "Bob", votes: 0 },
-    { name: "Charlie", votes: 0 }
-];
+let candidates = []; // Empty list (names will be loaded from JSON)
 
-// Load candidates into the page
-const candidateList = document.getElementById("candidates");
-candidates.forEach((candidate, index) => {
-    let li = document.createElement("li");
-    li.innerHTML = `${candidate.name} <button onclick="vote(${index})">⬆️ Vote</button>`;
-    candidateList.appendChild(li);
-});
+// Fetch names from names.json
+fetch('names.json')
+    .then(response => response.json())
+    .then(data => {
+        candidates = data.map(name => ({ name: name, votes: 0 }));
+        displayCandidates();
+    });
+
+// Function to display candidates in a table
+function displayCandidates() {
+    const candidateList = document.getElementById("candidates");
+    candidateList.innerHTML = "";  // Clear previous list
+
+    candidates.forEach((candidate, index) => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${candidate.name}</td>
+            <td><button class="vote-btn" onclick="vote(${index})">⬆️ Vote</button></td>
+        `;
+        candidateList.appendChild(row);
+    });
+}
 
 // Prevent multiple votes using LocalStorage
 function vote(index) {
@@ -27,12 +37,7 @@ function vote(index) {
 // Update ranking without showing exact votes
 function updateRanking() {
     candidates.sort((a, b) => b.votes - a.votes);
-    candidateList.innerHTML = "";
-    candidates.forEach((candidate) => {
-        let li = document.createElement("li");
-        li.innerHTML = `${candidate.name}`;
-        candidateList.appendChild(li);
-    });
+    displayCandidates();
 }
 
 // Countdown Timer (2 days)
@@ -40,6 +45,7 @@ const endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
 function countdown() {
     const now = new Date().getTime();
     const timeLeft = endTime - now;
+
     if (timeLeft <= 0) {
         document.getElementById("timer").innerHTML = "Voting has ended!";
     } else {
