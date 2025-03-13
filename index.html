@@ -3,27 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Best Boy of Class 10</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 10 Best Boy Voting</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Home Page (Gender Selection) -->
-    <div id="home-container" class="centered">
-        <h1>Welcome to the Best Boy Voting!</h1>
-        <button id="boy-btn" class="gender-btn">I'm a Boy</button>
-        <button id="girl-btn" class="gender-btn">I'm a Girl</button>
+    <div class="container">
+        <h1>Welcome to the Best Boy of Class 10 Voting!</h1>
+        <div class="button-container">
+            <button class="gender-btn" onclick="selectGender('boy')">I’m a Boy</button>
+            <button class="gender-btn" onclick="selectGender('girl')">I’m a Girl</button>
+        </div>
     </div>
 
-    <!-- Voting Page -->
-    <div id="vote-container" class="hidden">
-        <h1>Best Boy of Class 10 🏆</h1>
-        <div id="timer">Time Left: 5:00</div>
-        <div id="total-votes">Total Votes: 0</div>
-        <div id="candidate-list"></div>
-    </div>
+    <script>
+        function selectGender(gender) {
+            localStorage.setItem('userGender', gender);
+            window.location.href = "vote.html"; // Redirect to voting page
+        }
+    </script>
 
-    <script src="script.js"></script>
 </body>
 
 </html>
