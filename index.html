@@ -9,32 +9,22 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Welcome to the Class Voting!</h1>
+    <div class="homepage-container">
+        <h1 class="homepage-title">Welcome to the Classroom Voting!</h1>
+        <p class="homepage-subtitle">Are you a boy or a girl?</p>
 
-        <!-- Gender Selection -->
-        <div id="gender-selection">
-            <button class="gender-btn" onclick="selectGender('boy')">I'm a Boy</button>
-            <button class="gender-btn" onclick="selectGender('girl')">I'm a Girl</button>
+        <div class="homepage-buttons">
+            <button class="gender-btn" id="boy-btn" onclick="selectGender('boy')">I'm a Boy</button>
+            <button class="gender-btn" id="girl-btn" onclick="selectGender('girl')">I'm a Girl</button>
         </div>
     </div>
 
     <script>
         function selectGender(gender) {
-            // Save gender choice to localStorage
-            if (gender === 'boy') {
-                let boyVotes = localStorage.getItem('boyVotes') || 0;
-                localStorage.setItem('boyVotes', Number(boyVotes) + 1);
-            } else if (gender === 'girl') {
-                let girlVotes = localStorage.getItem('girlVotes') || 0;
-                localStorage.setItem('girlVotes', Number(girlVotes) + 1);
-            }
-
-            // Redirect to the voting page
+            localStorage.setItem('userGender', gender);
             window.location.href = 'vote.html';
         }
     </script>
-
 </body>
 
 </html>
