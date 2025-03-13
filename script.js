@@ -2,21 +2,20 @@
 let endTime = localStorage.getItem("endTime");
 
 if (!endTime) {
-    // Set the end time to 2 days from now if not set
     endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
     localStorage.setItem("endTime", endTime);
 } else {
     endTime = parseInt(endTime);
 }
 
-let candidates = []; // Global array to store candidate data
+let candidates = [];
 
-// Fetch candidates from JSON and display them
+// Fetch and display candidates from the new simple JSON format
 fetch('candidates.json')
     .then(response => response.json())
     .then(data => {
-        candidates = data; // Store JSON data globally
-        displayCandidates(); // Populate candidates
+        candidates = data.map(name => ({ name })); // Convert to object format
+        displayCandidates();
     })
     .catch(error => console.error('❌ Error loading candidates:', error));
 
@@ -27,7 +26,7 @@ function countdown() {
 
     if (timeLeft <= 0) {
         document.getElementById("timer").innerHTML = "⏳ Voting has ended!";
-        localStorage.removeItem("endTime"); // Clear timer after expiration
+        localStorage.removeItem("endTime");
         lockVoting();
         return;
     }
@@ -38,13 +37,13 @@ function countdown() {
     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
     document.getElementById("timer").innerHTML = `🕒 Voting ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    setTimeout(countdown, 1000); // Update every second
+    setTimeout(countdown, 1000);
 }
 
-// Displays candidate list dynamically
+// Display candidates as buttons
 function displayCandidates() {
     const candidateList = document.getElementById('candidateList');
-    candidateList.innerHTML = ""; // Clear previous entries
+    candidateList.innerHTML = "";
 
     candidates.forEach(candidate => {
         const candidateDiv = document.createElement('div');
@@ -65,9 +64,8 @@ function vote(candidateName) {
     }
 
     alert(`✅ Your vote for ${candidateName} has been recorded!`);
-    localStorage.setItem("voted", "true"); // Prevent multiple votes
+    localStorage.setItem("voted", "true");
 
-    // Store the vote
     const votes = JSON.parse(localStorage.getItem("votes")) || {};
     votes[candidateName] = (votes[candidateName] || 0) + 1;
     localStorage.setItem("votes", JSON.stringify(votes));
@@ -75,12 +73,11 @@ function vote(candidateName) {
     console.log(`✅ Vote registered for: ${candidateName}`);
 }
 
-// Locks voting after time expires
+// Lock voting after the timer ends
 function lockVoting() {
     const buttons = document.querySelectorAll(".vote-btn");
     buttons.forEach(button => button.disabled = true);
     alert("🚫 Voting is now closed!");
 }
 
-// Start the countdown and check if voting is still open
 countdown();
