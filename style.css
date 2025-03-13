@@ -16,6 +16,34 @@ body {
     align-items: center;
     min-height: 100vh;
 }
+.candidate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    border-bottom: 1px solid white;
+}
+.candidate span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    flex-grow: 1;
+    text-align: left;
+}
+.candidate button {
+    font-size: 2rem;
+    cursor: pointer;
+    background: #FFD700;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    transition: transform 0.2s ease;
+}
+
+.candidate button:hover {
+    transform: scale(1.2);
+}
 
 /* Title styling */
 h1 {
