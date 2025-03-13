@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Contest Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #FFE4E1; /* Soft pink */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 10%;
+        }
+
+        h1 {
+            color: #FF69B4; /* Pink Title */
+            font-size: 2.5rem;
+        }
+
+        form {
+            margin-top: 2rem;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1.2rem;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #FF69B4;
+            border-radius: 8px;
+        }
+
+        .btn {
+            background-color: #FF1493; /* Deep Pink Button */
+            color: white;
+            padding: 12px 24px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        #voteButton {
+            display: none; /* Hide until registration is complete */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Register for upcoming "Best girl" vote</h1>
+        
+        <form id="registerForm">
+            <label for="name">Enter Your Name:</label><br>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <br>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+
+        <!-- Success message + Vote button -->
+        <p id="message"></p>
+        <a href="mainvoting.html" id="voteButton" class="btn">Vote Now! 🗳️</a>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form reload
+
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                alert('Please enter your name!');
+                return;
+            }
+
+            // Save the name to local storage (can later be moved to JSON storage)
+            let girlsList = JSON.parse(localStorage.getItem('registeredGirls')) || [];
+            girlsList.push(name);
+            localStorage.setItem('registeredGirls', JSON.stringify(girlsList));
+
+            // Display success message and show Vote Now button
+            document.getElementById('message').textContent = `✅ Thank you, ${name}! You are registered.`;
+            document.getElementById('registerForm').reset();
+            document.getElementById('voteButton').style.display = 'inline-block';
+        });
+    </script>
+</body>
+
+</html>
