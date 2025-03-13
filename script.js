@@ -19,9 +19,12 @@ fetch('candidates.json')
         // Store candidates in localStorage if not already there
         if (!localStorage.getItem('candidates')) {
             localStorage.setItem('candidates', JSON.stringify(candidates));
+        } else {
+            updateRanking(); // Ensure rankings stay updated
         }
     });
 
+// Vote function (One person, one vote)
 function vote(index) {
     if (localStorage.getItem('hasVoted')) {
         alert("❌ You have already voted!");
@@ -44,7 +47,7 @@ function vote(index) {
     updateRanking();
 }
 
-// Update candidate ranking
+// Update candidate ranking dynamically
 function updateRanking() {
     let candidates = JSON.parse(localStorage.getItem('candidates'));
     candidates.sort((a, b) => b.votes - a.votes);
@@ -58,26 +61,32 @@ function updateRanking() {
     ).join('');
 }
 
-// Countdown Timer (5 minutes)
+// Countdown Timer (Persistent across refresh)
 function startTimer(duration) {
-    let timer = duration;
     const timerElement = document.getElementById('timer');
+    let endTime = parseInt(localStorage.getItem('endTime'));
+
+    // If no timer is set, create a new one
+    if (!endTime || isNaN(endTime)) {
+        endTime = Date.now() + duration * 1000; // 5 minutes in milliseconds
+        localStorage.setItem('endTime', endTime);
+    }
 
     const countdown = setInterval(() => {
-        const minutes = Math.floor(timer / 60);
-        const seconds = timer % 60;
-
-        timerElement.textContent = `Voting ends in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        timer--;
-
-        if (timer < 0) {
+        const timeLeft = endTime - Date.now();
+        if (timeLeft <= 0) {
             clearInterval(countdown);
             showWinner();
+            return;
         }
+
+        const minutes = Math.floor(timeLeft / 60000);
+        const seconds = Math.floor((timeLeft % 60000) / 1000);
+        timerElement.textContent = `Voting ends in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }, 1000);
 }
 
-// Display Winner
+// Display Winner after timer ends
 function showWinner() {
     let candidates = JSON.parse(localStorage.getItem('candidates'));
     candidates.sort((a, b) => b.votes - a.votes);
@@ -89,59 +98,17 @@ function showWinner() {
             <p>Total Votes: ${localStorage.getItem('totalVotes')}</p>
         </div>
     `;
+
+    // Clear timer to prevent restart
+    localStorage.removeItem('endTime');
 }
 
-// Start the timer
+// Start Timer (300 seconds = 5 minutes)
 startTimer(300);
-// Set timer for 5 minutes (300 seconds)
-const duration = 1 * 60 * 1000;
 
-// Check if timer already exists in localStorage
-let endTime = localStorage.getItem("endTime");
+// ========== Anonymous Comments with IP Tracking ==========
 
-if (!endTime) {
-    // If no timer, set a new one
-    endTime = Date.now() + duration;
-    localStorage.setItem("endTime", endTime);
-} else {
-    endTime = parseInt(endTime);
-}
-
-// Check if an end time is already stored
-let endTime = localStorage.getItem("endTime");
-
-if (!endTime) {
-    // If no end time exists, set it for 5 minutes from now and store it
-    endTime = new Date().getTime() + 5 * 60 * 1000; // 5 minutes timer
-    localStorage.setItem("endTime", endTime);
-} else {
-    // Convert stored endTime to a number
-    endTime = parseInt(endTime, 10);
-}
-
-// Countdown Timer Function
-function countdown() {
-    const now = new Date().getTime();
-    const timeLeft = endTime - now;
-
-    const timerDisplay = document.getElementById("timer");
-
-    if (timeLeft <= 0) {
-        timerDisplay.innerHTML = "Voting has ended!";
-
-        // Stop the timer and prevent new votes (optional)
-        localStorage.removeItem("endTime"); // Remove timer permanently
-    } else {
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        timerDisplay.innerHTML = `Voting ends in: ${minutes}m ${seconds}s`;
-        
-        setTimeout(countdown, 1000);
-    }
-}
-
-countdown();
-// Function to load IP address using ipify
+// Function to get user's IP address
 function getUserIP(callback) {
     fetch('https://api64.ipify.org?format=json')
         .then(response => response.json())
@@ -180,7 +147,7 @@ document.getElementById('submitComment').addEventListener('click', () => {
     });
 });
 
-// Display Comments (Admin sees IPs, others see only text)
+// Display Comments (Admin sees IPs)
 function displayComments() {
     const commentsList = document.getElementById('commentsList');
     commentsList.innerHTML = '';
@@ -202,9 +169,8 @@ function isAdmin() {
     return localStorage.getItem('isAdmin') === 'true';
 }
 
-// To set admin access (for you only) -> Open DevTools and run:
+// Enable Admin (For Testing - Open Console and Run This)
 localStorage.setItem('isAdmin', 'true');
 
-// Load Comments on Page Load
+// Load comments on page load
 window.addEventListener('load', displayComments);
-
