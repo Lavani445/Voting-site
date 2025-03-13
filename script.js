@@ -1,10 +1,22 @@
+// Check if end time is already saved in LocalStorage
+let endTime = localStorage.getItem("endTime");
+
+if (!endTime) {
+    // If no end time exists, set it for 2 days from now and store it
+    endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
+    localStorage.setItem("endTime", endTime);
+} else {
+    // Convert stored endTime from string to number
+    endTime = parseInt(endTime);
+}
+
 let candidates = []; // Empty list (names will be loaded from JSON)
 
 // Fetch names from names.json
 fetch('name.json')
     .then(response => response.json())
     .then(data => {
-        candidates = data.map(name => ({ name: name, votes: 0 }));
+        candidates = data.map(name => ({ name: name, votes: 0 })); // Convert names into objects
         displayCandidates();
     });
 
@@ -40,31 +52,7 @@ function updateRanking() {
     displayCandidates();
 }
 
-// Check if end time is already saved in LocalStorage
-let endTime = localStorage.getItem("endTime");
-
-if (!endTime) {
-    // If no end time exists, set it for 2 days from now and store it
-    endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
-    localStorage.setItem("endTime", endTime);
-} else {
-    // Convert stored endTime from string to number
-    endTime = parseInt(endTime);
-}
-
-// Check if end time is already saved in LocalStorage
-let endTime = localStorage.getItem("endTime");
-
-if (!endTime) {
-    // If no end time exists, set it for 2 days from now and store it
-    endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
-    localStorage.setItem("endTime", endTime);
-} else {
-    // Convert stored endTime from string to number
-    endTime = parseInt(endTime);
-}
-
-// Countdown Timer Function (Now Includes Seconds)
+// Countdown Timer Function (Includes Seconds & Remembers Time)
 function countdown() {
     const now = new Date().getTime();
     const timeLeft = endTime - now;
