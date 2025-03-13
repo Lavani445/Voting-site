@@ -46,11 +46,18 @@ function vote(index) {
     updateRanking();
 }
 
-// Update ranking without showing exact votes
 function updateRanking() {
     candidates.sort((a, b) => b.votes - a.votes);
     displayCandidates();
+
+    // 🔹 Show votes in the console (for admin only)
+    console.clear();
+    console.log("🔹 Vote Counts (Admin View):");
+    candidates.forEach(candidate => {
+        console.log(`${candidate.name}: ${candidate.votes} votes`);
+    });
 }
+
 
 // Countdown Timer Function (Includes Seconds & Remembers Time)
 function countdown() {
