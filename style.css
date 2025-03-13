@@ -60,37 +60,55 @@ button {
 #timer {
     font-size: 2rem;
 }
-#comment-section {
-    margin: 20px 0;
-    padding: 10px;
-    border: 2px solid #007BFF;
-    border-radius: 8px;
-    background: #f4f4f9;
+#comments-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
 }
 
 #commentInput {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin: 10px 0;
-    border: 1px solid #007BFF;
-    border-radius: 5px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    resize: none;
 }
 
 #submitComment {
-    padding: 10px 20px;
+    padding: 8px 16px;
+    background: #4CAF50;
     color: white;
-    background-color: #007BFF;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-#commentDisplay {
-    margin-top: 20px;
+#submitComment:hover {
+    background: #45a049;
+}
+
+#commentsList {
+    list-style: none;
+    padding: 0;
 }
 
 #commentsList li {
-    margin-bottom: 8px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#commentsList li:last-child {
+    border-bottom: none;
+}
+
+#commentsList p {
+    margin: 5px 0;
+}
+
+
+  
     border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
 }
