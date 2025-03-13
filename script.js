@@ -85,6 +85,3 @@ function countdown() {
 }
 
 countdown();
-
-
-countdown();
