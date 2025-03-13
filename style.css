@@ -78,3 +78,53 @@ body {
         font-size: 1.5rem;
     }
 }
+/* Candidate list container */
+.candidate-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between candidates */
+}
+
+/* Candidate block */
+.candidate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border: 2px solid #000;
+    border-radius: 12px;
+    font-size: 2rem;
+    background: #fff;
+    transition: transform 0.2s ease;
+}
+
+/* Vote Button */
+.vote-btn {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    transition: background 0.3s ease;
+}
+
+/* Disabled Vote Button */
+.vote-btn:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
+/* Hover Effect */
+.vote-btn:hover:not(:disabled) {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+/* When user has voted */
+.voted {
+    background-color: #2196F3; /* Blue */
+    cursor: default;
+}
+
