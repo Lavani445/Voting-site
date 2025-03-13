@@ -93,3 +93,37 @@ function showWinner() {
 
 // Start the timer
 startTimer(300);
+// Set timer for 5 minutes (300 seconds)
+const duration = 5 * 60 * 1000;
+
+// Check if timer already exists in localStorage
+let endTime = localStorage.getItem("endTime");
+
+if (!endTime) {
+    // If no timer, set a new one
+    endTime = Date.now() + duration;
+    localStorage.setItem("endTime", endTime);
+} else {
+    endTime = parseInt(endTime);
+}
+
+// Countdown Timer Function
+function countdown() {
+    const now = Date.now();
+    const timeLeft = endTime - now;
+
+    if (timeLeft <= 0) {
+        document.getElementById("timer").textContent = "Voting has ended!";
+        return;
+    }
+
+    const minutes = Math.floor((timeLeft / 1000) / 60);
+    const seconds = Math.floor((timeLeft / 1000) % 60);
+    document.getElementById("timer").textContent = `Time left: ${minutes}m ${seconds}s`;
+
+    requestAnimationFrame(countdown);
+}
+
+// Start the countdown
+countdown();
+
