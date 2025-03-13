@@ -60,3 +60,37 @@ button {
 #timer {
     font-size: 2rem;
 }
+#comment-section {
+    margin: 20px 0;
+    padding: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    background: #f4f4f9;
+}
+
+#commentInput {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+}
+
+#submitComment {
+    padding: 10px 20px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#commentDisplay {
+    margin-top: 20px;
+}
+
+#commentsList li {
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
