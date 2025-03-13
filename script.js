@@ -68,7 +68,7 @@ function startTimer(duration) {
 
     // If no timer is set, create a new one
     if (!endTime || isNaN(endTime)) {
-        endTime = Date.now() + duration * 1000; // 5 minutes in milliseconds
+        endTime = Date.now() + duration * 1000;
         localStorage.setItem('endTime', endTime);
     }
 
@@ -80,9 +80,10 @@ function startTimer(duration) {
             return;
         }
 
-        const minutes = Math.floor(timeLeft / 60000);
-        const seconds = Math.floor((timeLeft % 60000) / 1000);
-        timerElement.textContent = `Voting ends in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        timerElement.textContent = `Voting ends in: ${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
 }
 
@@ -103,10 +104,8 @@ function showWinner() {
     localStorage.removeItem('endTime');
 }
 
-// Start Timer (300 seconds = 5 minutes)
-startTimer(300);
-
-// ========== Anonymous Comments with IP Tracking ==========
+// Start Timer (2 Days = 172800 seconds)
+startTimer(172800);
 
 // Handle Comment Submission
 document.getElementById('submitComment').addEventListener('click', () => {
