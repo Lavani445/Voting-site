@@ -1,33 +1,40 @@
-/* General Styling */
+/* General styling */
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: Arial, sans-serif;
-    text-align: center;
     background: #4A90E2; /* Blue background */
     color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-/* Centered Layout */
-.centered {
+/* Main container */
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full page height */
+    height: 100vh;
 }
 
-/* Gender Buttons */
+/* Title styling */
+h1 {
+    font-size: 3rem;
+}
+
+/* Gender buttons */
+.button-container {
+    display: flex;
+    gap: 2rem;
+}
+
 .gender-btn {
-    font-size: 2rem; /* Big buttons */
     padding: 20px 40px;
-    margin: 20px;
+    font-size: 2rem;
     border: none;
     border-radius: 10px;
+    background: #FFD700;
     cursor: pointer;
-    background-color: #FF6F61; /* Coral color */
-    color: white;
     transition: transform 0.2s;
 }
 
@@ -35,50 +42,21 @@ body {
     transform: scale(1.1);
 }
 
-/* Hidden Class */
-.hidden {
-    display: none;
+/* Candidate box */
+.candidate {
+    margin: 20px 0;
+    font-size: 2rem;
 }
 
-/* Voting Section */
-#vote-container h1 {
-    font-size: 3rem; /* Large title */
-    margin: 20px 0;
+button {
+    padding: 10px 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    background: #FFD700;
+    border: none;
+    border-radius: 5px;
 }
 
 #timer {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-}
-
-#total-votes {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-/* Candidate List */
-.candidate {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 2rem; /* Larger names */
-    margin: 15px 0;
-    background: #2E3A59; /* Dark background for contrast */
-    padding: 20px;
-    border-radius: 10px;
-}
-
-/* Vote Arrow Button */
-.vote-btn {
     font-size: 2rem;
-    padding: 10px 20px;
-    cursor: pointer;
-    background: #FFCA28; /* Gold */
-    border: none;
-    border-radius: 50%;
-    transition: transform 0.2s;
-}
-
-.vote-btn:hover {
-    transform: scale(1.2);
 }
