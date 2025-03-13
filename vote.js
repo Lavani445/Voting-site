@@ -1,16 +1,41 @@
 // Load candidates from external JSON
+let candidates = [];
+
 fetch('candidates.json')
     .then(response => response.json())
-    .then(candidates => {
-        displayCandidates(candidates);
+    .then(data => {
+        candidates = data;
+        checkTimer();
     })
     .catch(error => console.error('Error loading candidates:', error));
 
 // Check if the user already voted
 const hasVoted = localStorage.getItem('hasVoted');
 
+// Set the timer (2 days in milliseconds)
+const voteDuration = 2 * 24 * 60 * 60 * 1000; // 2 days
+let endTime = localStorage.getItem('endTime');
+
+if (!endTime) {
+    endTime = Date.now() + voteDuration;
+    localStorage.setItem('endTime', endTime);
+} else {
+    endTime = parseInt(endTime);
+}
+
+// Check timer and display either candidates or the winner
+function checkTimer() {
+    const now = Date.now();
+    if (now >= endTime) {
+        displayWinner();
+    } else {
+        displayCandidates();
+        startCountdown();
+    }
+}
+
 // Display candidates dynamically
-function displayCandidates(candidates) {
+function displayCandidates() {
     const candidateList = document.getElementById('candidateList');
     candidateList.innerHTML = '';
 
@@ -36,12 +61,9 @@ function vote(candidateName, index) {
         return;
     }
 
-    // Confirm vote
     if (confirm(`Are you sure you want to vote for ${candidateName}?`)) {
-        // Save the vote to LocalStorage
         localStorage.setItem('hasVoted', candidateName);
 
-        // Update the button text and disable further voting
         const voteButton = document.getElementById(`vote-${index}`);
         voteButton.textContent = 'Voted ✔️';
         voteButton.disabled = true;
@@ -49,20 +71,50 @@ function vote(candidateName, index) {
         alert(`✅ You successfully voted for ${candidateName}!`);
     }
 }
-// Timer
-function countdown() {
-    const endTime = Date.now() + 2 * 24 * 60 * 60 * 1000;
-    function update() {
-        const timeLeft = endTime - Date.now();
-        if (timeLeft <= 0) {
-            document.getElementById("timer").innerText = "Voting has ended!";
-        } else {
-            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("timer").innerText = `Ends in: ${hours}h ${minutes}m`;
-            setTimeout(update, 1000);
-        }
-    }
-    update();
+
+// Display winner when the timer ends
+function displayWinner() {
+    const candidateList = document.getElementById('candidateList');
+    candidateList.innerHTML = '';
+
+    // Sort candidates to find the winner
+    candidates.sort((a, b) => b.votes - a.votes);
+    const winner = candidates[0];
+
+    const winnerMessage = document.createElement('div');
+    winnerMessage.className = 'winner';
+    winnerMessage.innerHTML = `
+        🎉 <strong>The Most Handsome Boy Chosen is:</strong> <br>
+        <span class="winner-name">${winner.name}</span> 🎊
+    `;
+
+    candidateList.appendChild(winnerMessage);
 }
-countdown();
+
+// Countdown Timer Display
+function startCountdown() {
+    const timerDisplay = document.createElement('div');
+    timerDisplay.id = 'timer';
+    document.body.prepend(timerDisplay);
+
+    function updateTimer() {
+        const now = Date.now();
+        const timeLeft = endTime - now;
+
+        if (timeLeft <= 0) {
+            displayWinner();
+            clearInterval(timerInterval);
+            return;
+        }
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        timerDisplay.textContent = `Voting ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+}
