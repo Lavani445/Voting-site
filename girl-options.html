@@ -4,15 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Girl Options</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Girls' Options</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #FFE4E1; /* Soft pink background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 20%;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #FF69B4; /* Hot pink title */
+        }
+        .btn-container {
+            margin-top: 2rem;
+        }
+        .btn {
+            display: inline-block;
+            width: 250px; /* Bigger buttons */
+            padding: 20px;
+            margin: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none; /* Remove link underline */
+            color: white;
+            transition: 0.3s;
+        }
+        .btn-register {
+            background-color: #FF1493; /* Deep pink */
+        }
+        .btn-vote {
+            background-color: #FF4500; /* Orange-red */
+        }
+        .btn:hover {
+            opacity: 0.8; /* Hover effect */
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome Girl! 💖</h1>
-        <a href="mainvoting.html" class="btn">Vote Now</a>
-        <a href="register.html" class="btn">Register for upcomming "Best Girl" vote</a>
+        <h1>Welcome, Girls! 💖</h1>
+        <div class="btn-container">
+            <!-- Register Button -->
+            <a href="register.html" class="btn btn-register">Register for upcoming "Beautiful girl" votes</a>
+            <!-- Vote Button -->
+            <a href="mainvote.html" class="btn btn-vote">Vote for Handsome Boy</a>
+        </div>
     </div>
 </body>
 
