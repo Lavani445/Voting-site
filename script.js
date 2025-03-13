@@ -108,89 +108,34 @@ startTimer(300);
 
 // ========== Anonymous Comments with IP Tracking ==========
 
-// Function to get user's IP address
-function getUserIP(callback) {
-    fetch('https://api64.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => callback(data.ip))
-        .catch(error => console.error('Error fetching IP:', error));
-}
-
 // Handle Comment Submission
 document.getElementById('submitComment').addEventListener('click', () => {
     const commentInput = document.getElementById('commentInput');
     const commentText = commentInput.value.trim();
 
     if (!commentText) {
-        alert('Please enter a comment before submitting.');
+        alert('❌ Please enter a comment.');
         return;
     }
 
-    // Get User IP and Store Comment
-    getUserIP((userIP) => {
-        const comment = {
-            text: commentText,
-            timestamp: new Date().toLocaleString(),
-            ip: userIP
-        };
+    // Create a new comment object
+    const newComment = {
+        text: commentText,
+        timestamp: new Date().toLocaleString(),
+    };
 
-        // Save to Local Storage (for persistence)
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.push(comment);
-        localStorage.setItem('comments', JSON.stringify(comments));
+    // Save the comment to Local Storage
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    comments.push(newComment);
+    localStorage.setItem('comments', JSON.stringify(comments));
 
-        // Display the new comment
-        displayComments();
-
-        // Clear the input box
-        commentInput.value = '';
-    });
+    // Display updated comments
+    displayComments();
+    commentInput.value = '';
+    alert('✅ Comment posted successfully!');
 });
 
-// Display Comments (Admin sees IPs)
- // Get User IP Address (for admin view only)
-function getUserIP(callback) {
-    fetch('https://api64.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => callback(data.ip))
-        .catch(error => console.error('Error fetching IP:', error));
-}
-
-// Check if user is Admin
-function isAdmin() {
-    return localStorage.getItem('isAdmin') === 'true';
-}
-
-// Handle Comment Submission
-document.getElementById('submitComment').addEventListener('click', () => {
-    const commentInput = document.getElementById('commentInput');
-    const commentText = commentInput.value.trim();
-
-    if (!commentText) {
-        alert('Please enter a comment before submitting.');
-        return;
-    }
-
-    // Get User IP and Store Comment
-    getUserIP((userIP) => {
-        const comment = {
-            text: commentText,
-            timestamp: new Date().toLocaleString(),
-            ip: userIP
-        };
-
-        // Save comment to Local Storage
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        comments.push(comment);
-        localStorage.setItem('comments', JSON.stringify(comments));
-
-        // Display comments and clear input
-        displayComments();
-        commentInput.value = '';
-    });
-});
-
-// Display Comments (IP is only visible to admin)
+// Display Comments
 function displayComments() {
     const commentsList = document.getElementById('commentsList');
     commentsList.innerHTML = '';
@@ -200,16 +145,11 @@ function displayComments() {
     comments.forEach(comment => {
         const li = document.createElement('li');
         li.innerHTML = `
-            <p>${comment.text}</p>
-            <small>${comment.timestamp}</small>
-            ${isAdmin() ? `<em>(IP: ${comment.ip})</em>` : ''}
+            <strong>${comment.timestamp}</strong>: ${comment.text}
         `;
         commentsList.appendChild(li);
     });
 }
 
-// Set Admin Access (Open DevTools and run this ONCE to become admin)
-localStorage.setItem('isAdmin', 'true');
-
-// Load comments on page load
+// Load Comments on Page Load
 window.addEventListener('load', displayComments);
