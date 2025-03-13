@@ -94,7 +94,7 @@ function showWinner() {
 // Start the timer
 startTimer(300);
 // Set timer for 5 minutes (300 seconds)
-const duration = 5 * 60 * 1000;
+const duration = 1 * 60 * 1000;
 
 // Check if timer already exists in localStorage
 let endTime = localStorage.getItem("endTime");
@@ -107,23 +107,37 @@ if (!endTime) {
     endTime = parseInt(endTime);
 }
 
-// Countdown Timer Function
-function countdown() {
-    const now = Date.now();
-    const timeLeft = endTime - now;
+// Check if an end time is already stored
+let endTime = localStorage.getItem("endTime");
 
-    if (timeLeft <= 0) {
-        document.getElementById("timer").textContent = "Voting has ended!";
-        return;
-    }
-
-    const minutes = Math.floor((timeLeft / 1000) / 60);
-    const seconds = Math.floor((timeLeft / 1000) % 60);
-    document.getElementById("timer").textContent = `Time left: ${minutes}m ${seconds}s`;
-
-    requestAnimationFrame(countdown);
+if (!endTime) {
+    // If no end time exists, set it for 5 minutes from now and store it
+    endTime = new Date().getTime() + 5 * 60 * 1000; // 5 minutes timer
+    localStorage.setItem("endTime", endTime);
+} else {
+    // Convert stored endTime to a number
+    endTime = parseInt(endTime, 10);
 }
 
-// Start the countdown
-countdown();
+// Countdown Timer Function
+function countdown() {
+    const now = new Date().getTime();
+    const timeLeft = endTime - now;
 
+    const timerDisplay = document.getElementById("timer");
+
+    if (timeLeft <= 0) {
+        timerDisplay.innerHTML = "Voting has ended!";
+
+        // Stop the timer and prevent new votes (optional)
+        localStorage.removeItem("endTime"); // Remove timer permanently
+    } else {
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        timerDisplay.innerHTML = `Voting ends in: ${minutes}m ${seconds}s`;
+        
+        setTimeout(countdown, 1000);
+    }
+}
+
+countdown();
