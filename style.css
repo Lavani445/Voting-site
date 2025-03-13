@@ -1,74 +1,80 @@
-/* General Styles */
+/* General Body Styling */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: linear-gradient(to right, #4e54c8, #8f94fb);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    color: white;
+    font-family: 'Arial', sans-serif;
+    background: #f9f9f9;
+    color: #333;
 }
 
-/* Main Container */
-.container {
-    text-align: center;
-    max-width: 800px;
-    width: 100%;
-}
-
-/* Title */
-h1 {
-    font-size: 3rem;
-    margin-bottom: 40px;
-}
-
-/* Timer */
-#timer {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-}
-
-/* Candidate List */
-#candidate-list {
+/* Centered Homepage Styling */
+.homepage-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-/* Candidate Card */
-.candidate {
-    display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    transition: 0.3s ease;
+    height: 100vh; /* Full viewport height */
+    text-align: center;
 }
 
-/* Candidate Name */
-.candidate-name {
-    font-size: 2rem; /* Bigger names */
+/* Big Homepage Title */
+.homepage-title {
+    font-size: 3.5rem; /* Large Title */
+    margin-bottom: 1rem;
+    color: #222;
 }
 
-/* Vote Button (Arrow) */
-.vote-btn {
-    padding: 15px 30px;
-    font-size: 2rem;
-    background: #fff;
-    color: #4e54c8;
+/* Subtitle */
+.homepage-subtitle {
+    font-size: 2rem; /* Big Text */
+    margin-bottom: 2rem;
+}
+
+/* Gender Buttons */
+.homepage-buttons {
+    display: flex;
+    gap: 2rem; /* Space between buttons */
+}
+
+/* Button Styling */
+.gender-btn {
+    padding: 1.5rem 3rem;
+    font-size: 2rem; /* Bigger Text */
     border: none;
-    border-radius: 12px;
+    border-radius: 12px; /* Rounded Buttons */
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
 }
 
-/* Hover Effect */
-.vote-btn:hover {
-    background: #8f94fb;
+/* Different Colors for Boy and Girl */
+#boy-btn {
+    background-color: #4CAF50; /* Green */
     color: white;
-    transform: scale(1.1);
+}
+
+#girl-btn {
+    background-color: #FF4081; /* Pink */
+    color: white;
+}
+
+/* Button Hover Effect */
+.gender-btn:hover {
+    transform: scale(1.1); /* Enlarge on hover */
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .homepage-title {
+        font-size: 2.5rem; /* Slightly Smaller on Mobile */
+    }
+
+    .homepage-subtitle {
+        font-size: 1.8rem;
+    }
+
+    .gender-btn {
+        padding: 1.2rem 2rem;
+        font-size: 1.5rem;
+    }
 }
