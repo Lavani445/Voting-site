@@ -112,3 +112,31 @@ button {
     border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
 }
+/* Ensure candidates and arrows align horizontally */
+.candidate {
+    display: flex;            /* Aligns items in a row */
+    justify-content: space-between; /* Space between name and arrow */
+    align-items: center;      /* Vertically aligns items */
+    margin: 10px 0;           /* Add some spacing between candidates */
+}
+
+/* Make candidate names bold and larger */
+.candidate span {
+    font-size: 1.5rem;        /* Adjust size of candidate names */
+    font-weight: bold;        /* Make names bold */
+}
+
+/* Style for the voting arrow button */
+.candidate button {
+    font-size: 2rem;          /* Increase arrow size */
+    cursor: pointer;          /* Change cursor on hover */
+    border: none;             /* Remove border */
+    background: transparent;  /* Transparent background */
+    padding: 5px 10px;        /* Padding for better clickability */
+    transition: transform 0.2s ease;
+}
+
+/* Arrow hover effect */
+.candidate button:hover {
+    transform: scale(1.3);    /* Slight zoom on hover */
+}
