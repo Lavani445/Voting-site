@@ -10,12 +10,104 @@
 
 <body>
     <div class="container">
-        <h1>Vote for the Most Handsome Boy 👑</h1>
+        <h1>Vote for the Most Handsome Boy! 👑</h1>
         <p id="timer"></p>
-        <div id="candidateList" class="candidate-container"></div>
+
+        <!-- Candidate List -->
+        <div id="candidate-list">
+            <!-- Candidates will be added dynamically here -->
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Fetch candidates from an external JSON file
+        let candidates = [];
+
+        async function fetchCandidates() {
+            try {
+                const response = await fetch('candidates.json');
+                candidates = await response.json();
+
+                // Initialize vote counts if not already present
+                candidates.forEach(candidate => {
+                    candidate.votes = parseInt(localStorage.getItem(candidate.name)) || 0;
+                });
+
+                updateRanking();
+            } catch (error) {
+                console.error("Error loading candidates:", error);
+            }
+        }
+
+        // Function to register a vote
+        function vote(candidateName) {
+            alert(`✅ You voted for ${candidateName}!`);
+
+            // Store vote in localStorage
+            let currentVotes = parseInt(localStorage.getItem(candidateName)) || 0;
+            localStorage.setItem(candidateName, currentVotes + 1);
+
+            // Update the ranking after voting
+            updateRanking();
+        }
+
+        // Update candidate ranking based on votes
+        function updateRanking() {
+            // Sort candidates by votes in descending order
+            candidates.sort((a, b) => b.votes - a.votes);
+
+            const candidateList = document.getElementById("candidate-list");
+            candidateList.innerHTML = "";
+
+            candidates.forEach(candidate => {
+                const candidateDiv = document.createElement("div");
+                candidateDiv.className = "candidate";
+                candidateDiv.innerHTML = `
+                    <span class="candidate-name">${candidate.name}</span>
+                    <button class="vote-btn" onclick="vote('${candidate.name}')">⬆️</button>
+                `;
+                candidateList.appendChild(candidateDiv);
+            });
+
+            console.log("🔍 Current Vote Counts (Admin View):", candidates);
+        }
+
+        // Countdown Timer Function (2 days)
+        function startCountdown() {
+            let endTime = localStorage.getItem("endTime");
+
+            if (!endTime) {
+                endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
+                localStorage.setItem("endTime", endTime);
+            }
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                const timeLeft = endTime - now;
+
+                if (timeLeft <= 0) {
+                    document.getElementById("timer").innerText = "Voting has ended!";
+                    localStorage.removeItem("endTime");
+                    return;
+                }
+
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                document.getElementById("timer").innerText = `Voting ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                setTimeout(updateTimer, 1000);
+            }
+
+            updateTimer();
+        }
+
+        // Initialize the page
+        fetchCandidates();
+        startCountdown();
+    </script>
+
 </body>
 
 </html>
