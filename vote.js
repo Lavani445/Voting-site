@@ -1,120 +1,110 @@
-// Load candidates from external JSON
+// Fetch candidates from external JSON and display them
 let candidates = [];
-
 fetch('candidates.json')
     .then(response => response.json())
     .then(data => {
         candidates = data;
-        checkTimer();
+        displayCandidates();
+        updateRanking();
     })
     .catch(error => console.error('Error loading candidates:', error));
 
-// Check if the user already voted
-const hasVoted = localStorage.getItem('hasVoted');
+// Check if the user has already voted
+const hasVoted = localStorage.getItem("hasVoted");
 
-// Set the timer (2 days in milliseconds)
-const voteDuration = 2 * 24 * 60 * 60 * 1000; // 2 days
-let endTime = localStorage.getItem('endTime');
-
-if (!endTime) {
-    endTime = Date.now() + voteDuration;
-    localStorage.setItem('endTime', endTime);
-} else {
-    endTime = parseInt(endTime);
-}
-
-// Check timer and display either candidates or the winner
-function checkTimer() {
-    const now = Date.now();
-    if (now >= endTime) {
-        displayWinner();
-    } else {
-        displayCandidates();
-        startCountdown();
-    }
-}
-
-// Display candidates dynamically
 function displayCandidates() {
-    const candidateList = document.getElementById('candidateList');
-    candidateList.innerHTML = '';
-
-    candidates.sort((a, b) => b.votes - a.votes); // Sort by highest votes
+    const candidateList = document.getElementById("candidateList");
+    candidateList.innerHTML = "";
 
     candidates.forEach((candidate, index) => {
-        const candidateDiv = document.createElement('div');
-        candidateDiv.className = 'candidate';
+        const candidateDiv = document.createElement("div");
+        candidateDiv.className = "candidate";
         candidateDiv.innerHTML = `
             <span class="candidate-name">${candidate.name}</span>
-            <button class="vote-btn" id="vote-${index}" onclick="vote('${candidate.name}', ${index})" ${hasVoted ? 'disabled' : ''}>
-                ${hasVoted === candidate.name ? 'Voted ✔️' : '⬆️ Vote'}
-            </button>
+            <button class="vote-btn" onclick="vote(${index})" ${hasVoted ? "disabled" : ""}>⬆️ Vote</button>
         `;
         candidateList.appendChild(candidateDiv);
     });
 }
 
-// Handle voting action
-function vote(candidateName, index) {
-    if (hasVoted) {
-        alert('You have already voted!');
+// Handle vote submission
+function vote(index) {
+    if (localStorage.getItem("hasVoted")) {
+        alert("❌ You have already voted!");
         return;
     }
 
-    if (confirm(`Are you sure you want to vote for ${candidateName}?`)) {
-        localStorage.setItem('hasVoted', candidateName);
+    candidates[index].votes += 1;
+    localStorage.setItem("hasVoted", "true");
+    alert(`✅ You voted for: ${candidates[index].name}`);
 
-        const voteButton = document.getElementById(`vote-${index}`);
-        voteButton.textContent = 'Voted ✔️';
-        voteButton.disabled = true;
-
-        alert(`✅ You successfully voted for ${candidateName}!`);
-    }
+    updateRanking();
 }
 
-// Display winner when the timer ends
-function displayWinner() {
-    const candidateList = document.getElementById('candidateList');
-    candidateList.innerHTML = '';
-
-    // Sort candidates to find the winner
+// Sort and display candidates by votes
+function updateRanking() {
     candidates.sort((a, b) => b.votes - a.votes);
-    const winner = candidates[0];
+    displayCandidates();
 
-    const winnerMessage = document.createElement('div');
-    winnerMessage.className = 'winner';
-    winnerMessage.innerHTML = `
-        🎉 <strong>The Most Handsome Boy Chosen is:</strong> <br>
-        <span class="winner-name">${winner.name}</span> 🎊
-    `;
+    console.clear(); // Clear console for a clean admin view
+    console.log("🔒 Vote Counts (Admin Only):");
+    candidates.forEach(candidate => {
+        console.log(`${candidate.name}: ${candidate.votes} votes`);
+    });
 
-    candidateList.appendChild(winnerMessage);
+    // Check if timer is expired and display the winner
+    if (isTimerExpired()) {
+        showWinner();
+    }
 }
 
-// Countdown Timer Display
-function startCountdown() {
-    const timerDisplay = document.createElement('div');
-    timerDisplay.id = 'timer';
-    document.body.prepend(timerDisplay);
+// Display the winner in the center after the timer ends
+function showWinner() {
+    const winner = candidates[0];
+    const container = document.getElementById("candidateList");
+    container.innerHTML = `
+        <div class="winner">
+            🎉 The Most Handsome Boy is: <span class="winner-name">${winner.name}</span> 🎉
+        </div>
+    `;
+}
 
-    function updateTimer() {
-        const now = Date.now();
-        const timeLeft = endTime - now;
+// Timer to check if the countdown is over
+function isTimerExpired() {
+    const endTime = localStorage.getItem("endTime");
+    return endTime && new Date().getTime() >= parseInt(endTime);
+}
 
-        if (timeLeft <= 0) {
-            displayWinner();
-            clearInterval(timerInterval);
-            return;
-        }
+// Ensure the timer works properly
+function setupTimer() {
+    let endTime = localStorage.getItem("endTime");
+    if (!endTime) {
+        endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
+        localStorage.setItem("endTime", endTime);
+    }
+    countdown();
+}
 
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+// Countdown Timer
+function countdown() {
+    const timerElement = document.getElementById("timer");
+    const now = new Date().getTime();
+    const endTime = parseInt(localStorage.getItem("endTime"));
+    const timeLeft = endTime - now;
 
-        timerDisplay.textContent = `Voting ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (timeLeft <= 0) {
+        timerElement.innerHTML = "Voting has ended!";
+        showWinner();
+        return;
     }
 
-    updateTimer();
-    const timerInterval = setInterval(updateTimer, 1000);
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    timerElement.innerHTML = `Voting ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    setTimeout(countdown, 1000);
 }
+
+setupTimer();
