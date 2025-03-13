@@ -2,30 +2,28 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Voting</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Vote for the Most Handsome Boy</h1>
-    <div id="timer"></div>
-    <div id="candidateList"></div>
-    <script src="vote.js"></script>
-</body>
-    <div class="homepage-container">
-        <h1 class="homepage-title">Welcome to the Classroom Voting!</h1>
-        <p class="homepage-subtitle">Are you a boy or a girl?</p>
 
-        <div class="homepage-buttons">
-            <button class="gender-btn" id="boy-btn" onclick="selectGender('boy')">I'm a Boy</button>
-            <button class="gender-btn" id="girl-btn" onclick="selectGender('girl')">I'm a Girl</button>
-        </div>
+<body>
+    <!-- Gender Selection Page -->
+    <div id="genderSelection" class="centered">
+        <h1>Welcome to the Classroom Voting</h1>
+        <button id="boyBtn" onclick="selectGender('boy')">I’m a Boy</button>
+        <button id="girlBtn" onclick="selectGender('girl')">I’m a Girl</button>
     </div>
 
-    <script>
-        function selectGender(gender) {
-            localStorage.setItem('userGender', gender);
-            window.location.href = 'vote.html';
-        }
-    </script>
+    <!-- Voting Page (Hidden by Default) -->
+    <div id="votingSection" class="hidden">
+        <h2>Vote for the Most Handsome Boy!</h2>
+        <p id="timer"></p>
+        <div id="candidateList"></div>
+    </div>
+
+    <script src="vote.js" defer></script>
 </body>
 
 </html>
