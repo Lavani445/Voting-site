@@ -52,7 +52,19 @@ if (!endTime) {
     endTime = parseInt(endTime);
 }
 
-// Countdown Timer Function
+// Check if end time is already saved in LocalStorage
+let endTime = localStorage.getItem("endTime");
+
+if (!endTime) {
+    // If no end time exists, set it for 2 days from now and store it
+    endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
+    localStorage.setItem("endTime", endTime);
+} else {
+    // Convert stored endTime from string to number
+    endTime = parseInt(endTime);
+}
+
+// Countdown Timer Function (Now Includes Seconds)
 function countdown() {
     const now = new Date().getTime();
     const timeLeft = endTime - now;
@@ -64,9 +76,15 @@ function countdown() {
         const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("timer").innerHTML = `Voting ends in: ${days}d ${hours}h ${minutes}m`;
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000); // Get seconds
+
+        document.getElementById("timer").innerHTML = `Voting ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
         setTimeout(countdown, 1000);
     }
 }
+
+countdown();
+
 
 countdown();
