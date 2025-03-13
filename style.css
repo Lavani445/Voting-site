@@ -1,4 +1,4 @@
-/* Reset and full-page center */
+/* Reset & Full-page Centering */
 body {
     margin: 0;
     padding: 0;
@@ -7,43 +7,56 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #4e54c8, #8f94fb); /* Gradient background */
     font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
     color: white;
     text-align: center;
 }
 
-/* Main container */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Hero Section (Center Everything) */
+.hero-section {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Content Wrapper */
+.content {
     animation: fadeIn 1s ease-in-out;
 }
 
-/* Smooth fade-in animation */
+/* Smooth Fade-in Effect */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Title styling */
-.main-title {
-    font-size: 4rem; /* Large text */
-    margin-bottom: 3rem; /* Space between title and buttons */
-    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+/* Main Heading */
+.main-heading {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Button container */
-.button-group {
+/* Subheading */
+.sub-heading {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+/* Button Container (Center Buttons) */
+.button-container {
     display: flex;
-    gap: 3rem; /* Space between buttons */
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap; /* Ensures proper alignment on small screens */
 }
 
-/* Button styling */
+/* Buttons */
 .btn {
-    padding: 20px 50px; /* Bigger buttons */
-    font-size: 2rem; /* Bigger text */
+    padding: 20px 50px;
+    font-size: 2rem;
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -51,18 +64,41 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Boy button style */
+/* Boy Button */
 .boy-btn {
-    background: #ff4757; /* Red tone */
+    background: #ff4757; /* Red */
+    color: white;
 }
 
-/* Girl button style */
+/* Girl Button */
 .girl-btn {
-    background: #2ed573; /* Green tone */
+    background: #32cd32; /* Green */
+    color: white;
 }
 
-/* Button hover effect */
+/* Button Hover Effect */
 .btn:hover {
-    transform: scale(1.1); /* Button grows slightly */
+    transform: scale(1.05);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .main-heading {
+        font-size: 2.5rem;
+    }
+
+    .sub-heading {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        padding: 15px 40px;
+        font-size: 1.5rem;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
 }
