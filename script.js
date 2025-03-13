@@ -11,7 +11,7 @@ if (!endTime) {
 let candidates = [];
 
 // Fetch and display candidates from the new simple JSON format
-fetch('candidates.json')
+fetch('names.json')
     .then(response => response.json())
     .then(data => {
         candidates = data.map(name => ({ name })); // Convert to object format
