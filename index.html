@@ -10,24 +10,31 @@
 
 <body>
     <div class="container">
-        <h1>Welcome to the Classroom Voting!</h1>
-        <p>Are you a boy or a girl?</p>
-        <div class="button-container">
-            <button onclick="location.href='vote.html'">I’m a Boy</button>
-            <button onclick="showGirlOptions()">I’m a Girl</button>
-        </div>
+        <h1>Welcome to the Class Voting!</h1>
 
-        <div id="girl-options" class="hidden">
-            <button onclick="location.href='vote.html'">Vote for the Most Handsome Boy</button>
-            <button onclick="location.href='register.html'">Register for Best Girl Contest</button>
+        <!-- Gender Selection -->
+        <div id="gender-selection">
+            <button class="gender-btn" onclick="selectGender('boy')">I'm a Boy</button>
+            <button class="gender-btn" onclick="selectGender('girl')">I'm a Girl</button>
         </div>
     </div>
 
     <script>
-        function showGirlOptions() {
-            document.getElementById('girl-options').classList.remove('hidden');
+        function selectGender(gender) {
+            // Save gender choice to localStorage
+            if (gender === 'boy') {
+                let boyVotes = localStorage.getItem('boyVotes') || 0;
+                localStorage.setItem('boyVotes', Number(boyVotes) + 1);
+            } else if (gender === 'girl') {
+                let girlVotes = localStorage.getItem('girlVotes') || 0;
+                localStorage.setItem('girlVotes', Number(girlVotes) + 1);
+            }
+
+            // Redirect to the voting page
+            window.location.href = 'vote.html';
         }
     </script>
+
 </body>
 
 </html>
