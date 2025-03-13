@@ -3,27 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Voting</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Best Boy of Class 10</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <!-- Gender Selection Page -->
-    <div id="genderSelection" class="centered">
-        <h1>Welcome to the Classroom Voting</h1>
-        <button id="boyBtn" onclick="selectGender('boy')">I’m a Boy</button>
-        <button id="girlBtn" onclick="selectGender('girl')">I’m a Girl</button>
+    <!-- Home Page (Gender Selection) -->
+    <div id="home-container" class="centered">
+        <h1>Welcome to the Best Boy Voting!</h1>
+        <button id="boy-btn" class="gender-btn">I'm a Boy</button>
+        <button id="girl-btn" class="gender-btn">I'm a Girl</button>
     </div>
 
-    <!-- Voting Page (Hidden by Default) -->
-    <div id="votingSection" class="hidden">
-        <h2>Vote for the Most Handsome Boy!</h2>
-        <p id="timer"></p>
-        <div id="candidateList"></div>
+    <!-- Voting Page -->
+    <div id="vote-container" class="hidden">
+        <h1>Best Boy of Class 10 🏆</h1>
+        <div id="timer">Time Left: 5:00</div>
+        <div id="total-votes">Total Votes: 0</div>
+        <div id="candidate-list"></div>
     </div>
 
-    <script src="vote.js" defer></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
