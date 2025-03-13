@@ -1,14 +1,7 @@
 [
-    "Arihant",
-    "Aaryansh",
-    "Anmol",
-    "Aayan",
-    "Pratyush",
-    "Shreyansh",
-    "Roshan",
-    "Subojeet",
-    "Dhruba",
-    "Nilanjan",
-    "Hitest",
-    "Pratim",
+    { "name": "Aaryansh" },
+    { "name": "Pratyush" },
+    { "name": "Shreyansh" },
+    { "name": "Arihant" }
 ]
+
