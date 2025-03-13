@@ -63,18 +63,22 @@ button {
 #comments-section {
     margin-top: 30px;
     padding: 20px;
-    background: #f9f9f9;
+    background: #3A6FB0; /* Darker blue for consistency */
     border-radius: 10px;
+    color: white; /* Ensure text is readable */
 }
+
 
 #commentInput {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #aaa;
+    border: 2px solid #FFD700; /* Highlight border */
     border-radius: 8px;
-    resize: none;
+    background: #4A90E2; /* Match page background */
+    color: white; /* White text for better visibility */
 }
+
 
 #submitComment {
     padding: 8px 16px;
