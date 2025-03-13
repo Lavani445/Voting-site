@@ -40,14 +40,26 @@ function updateRanking() {
     displayCandidates();
 }
 
-// Countdown Timer (2 days)
-const endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
+// Check if end time is already saved in LocalStorage
+let endTime = localStorage.getItem("endTime");
+
+if (!endTime) {
+    // If no end time exists, set it for 2 days from now and store it
+    endTime = new Date().getTime() + (2 * 24 * 60 * 60 * 1000);
+    localStorage.setItem("endTime", endTime);
+} else {
+    // Convert stored endTime from string to number
+    endTime = parseInt(endTime);
+}
+
+// Countdown Timer Function
 function countdown() {
     const now = new Date().getTime();
     const timeLeft = endTime - now;
 
     if (timeLeft <= 0) {
         document.getElementById("timer").innerHTML = "Voting has ended!";
+        localStorage.removeItem("endTime"); // Remove timer after it expires
     } else {
         const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -56,4 +68,5 @@ function countdown() {
         setTimeout(countdown, 1000);
     }
 }
+
 countdown();
