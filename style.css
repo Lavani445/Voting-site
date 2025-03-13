@@ -3,7 +3,7 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
     text-align: center;
     min-height: 100vh;
@@ -13,76 +13,67 @@ body {
     justify-content: center;
 }
 
-/* Container for the Voting Section */
-.container {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 2rem;
+/* Main Container Styling */
+.homepage-container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 3rem;
     border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    max-width: 700px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    max-width: 800px;
     width: 90%;
 }
 
 /* Title Styling */
 h1 {
     font-size: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Timer Styling */
-#timer {
-    font-size: 1.5rem;
     margin-bottom: 2rem;
 }
 
-/* Candidate List */
-#candidateList {
+/* Button Container (for Boy/Girl Choices) */
+.button-container {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
-/* Individual Candidate Card */
-.candidate {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.candidate:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-}
-
-/* Candidate Name Styling */
-.candidate span {
-    font-size: 1.6rem;
-    font-weight: bold;
-}
-
-/* Vote Button */
-.vote-btn {
-    font-size: 1.5rem;
-    padding: 0.5rem 1.5rem;
+/* Large Interactive Button */
+.big-btn {
+    font-size: 1.8rem;
+    padding: 1rem 3rem;
     border: none;
-    border-radius: 8px;
-    background: #ff4757;
+    border-radius: 10px;
+    background: #ff6347;
     color: white;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s;
 }
 
-.vote-btn:hover {
-    background: #e84118;
+.big-btn:hover {
+    background: #e74c3c;
+    transform: scale(1.1);
 }
 
-/* Footer Message */
+/* Input Box for Registration */
+.input-box {
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border: none;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    outline: none;
+}
+
+/* Success Message (Hidden by Default) */
+.hidden {
+    display: none;
+}
+
+/* Footer (Optional) */
 footer {
-    margin-top: 2rem;
+    margin-top: 3rem;
     font-size: 1rem;
-    opacity: 0.8;
+    opacity: 0.7;
 }
