@@ -49,27 +49,6 @@ function vote(candidateName, index) {
         alert(`✅ You successfully voted for ${candidateName}!`);
     }
 }
-
-
-// Display Candidates
-function displayCandidates(candidates) {
-    const list = document.getElementById("candidateList");
-    candidates.forEach(name => {
-        const div = document.createElement("div");
-        div.className = "candidate";
-        div.innerHTML = `
-            <span>${name}</span>
-            <button onclick="vote('${name}')">⬆️ Vote</button>
-        `;
-        list.appendChild(div);
-    });
-}
-
-// Handle Votes
-function vote(name) {
-    alert(`✅ You voted for ${name}!`);
-}
-
 // Timer
 function countdown() {
     const endTime = Date.now() + 2 * 24 * 60 * 60 * 1000;
