@@ -1,79 +1,56 @@
-/* General Page Styling */
+/* Center everything */
 body {
-    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    text-align: center;
-    min-height: 100vh;
+    box-sizing: border-box;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    font-family: 'Arial', sans-serif;
+    color: white;
 }
 
-/* Main Container Styling */
-.homepage-container {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 3rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
-    max-width: 800px;
-    width: 90%;
+/* Main container styling */
+.center-container {
+    text-align: center;
 }
 
-/* Title Styling */
-h1 {
-    font-size: 3rem;
-    margin-bottom: 2rem;
+/* Main title styling */
+.title {
+    font-size: 4rem; /* Bigger text */
+    margin-bottom: 3rem;
 }
 
-/* Button Container (for Boy/Girl Choices) */
+/* Button container styling */
 .button-container {
     display: flex;
-    gap: 2rem;
-    justify-content: center;
-    margin-top: 2rem;
+    gap: 2rem; /* Space between buttons */
 }
 
-/* Large Interactive Button */
-.big-btn {
-    font-size: 1.8rem;
-    padding: 1rem 3rem;
+/* Button styling */
+.choice-button {
+    padding: 20px 40px;
+    font-size: 2rem; /* Larger buttons */
     border: none;
-    border-radius: 10px;
-    background: #ff6347;
-    color: white;
+    border-radius: 15px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.big-btn:hover {
-    background: #e74c3c;
+/* Boy button color */
+.choice-button:first-child {
+    background: #ff4b2b; /* Reddish tone */
+}
+
+/* Girl button color */
+.choice-button:last-child {
+    background: #32cd32; /* Green tone */
+}
+
+/* Hover effect */
+.choice-button:hover {
     transform: scale(1.1);
-}
-
-/* Input Box for Registration */
-.input-box {
-    font-size: 1.5rem;
-    padding: 1rem;
-    margin: 1.5rem 0;
-    border: none;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 400px;
-    outline: none;
-}
-
-/* Success Message (Hidden by Default) */
-.hidden {
-    display: none;
-}
-
-/* Footer (Optional) */
-footer {
-    margin-top: 3rem;
-    font-size: 1rem;
-    opacity: 0.7;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
