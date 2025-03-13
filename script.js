@@ -50,13 +50,17 @@ function updateRanking() {
     candidates.sort((a, b) => b.votes - a.votes);
     displayCandidates();
 
-    // 🔹 Show votes in the console (for admin only)
-    console.clear();
+    // 🔹 Debug: Check if the function is running
+    console.log("✅ updateRanking() function is running!");
+
+    // 🔹 Show votes in the console (Admin Only)
+    console.clear(); // Clears old logs for a clean output
     console.log("🔹 Vote Counts (Admin View):");
     candidates.forEach(candidate => {
         console.log(`${candidate.name}: ${candidate.votes} votes`);
     });
 }
+
 
 
 // Countdown Timer Function (Includes Seconds & Remembers Time)
