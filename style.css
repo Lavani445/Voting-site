@@ -1,104 +1,62 @@
-/* Reset & Full-page Centering */
+/* Basic Reset */
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #4e54c8, #8f94fb);
-    color: white;
+    font-family: Arial, sans-serif;
+    background: #fefae0;
     text-align: center;
 }
 
-/* Hero Section (Center Everything) */
-.hero-section {
-    width: 100%;
-    padding: 20px;
-}
-
-/* Content Wrapper */
-.content {
-    animation: fadeIn 1s ease-in-out;
-}
-
-/* Smooth Fade-in Effect */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Main Heading */
-.main-heading {
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
-    letter-spacing: 1px;
-    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* Subheading */
-.sub-heading {
-    font-size: 1.8rem;
-    margin-bottom: 3rem;
-    opacity: 0.9;
-}
-
-/* Button Container (Center Buttons) */
-.button-container {
+/* Main Container */
+.container {
     display: flex;
-    gap: 2rem;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap; /* Ensures proper alignment on small screens */
+    height: 100vh;
+}
+
+/* Heading Style */
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
 }
 
 /* Buttons */
-.btn {
-    padding: 20px 50px;
-    font-size: 2rem;
-    border: none;
-    border-radius: 12px;
+.button-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 20px 40px;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Boy Button */
-.boy-btn {
-    background: #ff4757; /* Red */
+    border: none;
+    border-radius: 8px;
+    background: #ff6f61;
     color: white;
+    transition: background 0.3s;
 }
 
-/* Girl Button */
-.girl-btn {
-    background: #32cd32; /* Green */
-    color: white;
+button:hover {
+    background: #e65c50;
 }
 
-/* Button Hover Effect */
-.btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+/* Hidden Sections */
+.hidden {
+    display: none;
 }
 
-/* Mobile Optimization */
-@media (max-width: 768px) {
-    .main-heading {
-        font-size: 2.5rem;
-    }
-
-    .sub-heading {
-        font-size: 1.5rem;
-    }
-
-    .btn {
-        padding: 15px 40px;
-        font-size: 1.5rem;
-    }
-
-    .button-container {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
+/* Candidate Cards */
+.candidate {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 15px;
+    border: 2px solid #ff6f61;
+    border-radius: 10px;
+    font-size: 1.5rem;
 }
