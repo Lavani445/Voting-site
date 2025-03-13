@@ -1,56 +1,21 @@
-/* Center everything */
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    font-family: 'Arial', sans-serif;
-    color: white;
-}
+<!DOCTYPE html>
+<html lang="en">
 
-/* Main container styling */
-.center-container {
-    text-align: center;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Voting</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-/* Main title styling */
-.title {
-    font-size: 4rem; /* Bigger text */
-    margin-bottom: 3rem;
-}
+<body>
+    <div class="container">
+        <h1 class="main-title">Who Are You?</h1>
+        <div class="button-group">
+            <button onclick="location.href='vote.html'" class="btn boy-btn">I am a Boy</button>
+            <button onclick="location.href='girl.html'" class="btn girl-btn">I am a Girl</button>
+        </div>
+    </div>
+</body>
 
-/* Button container styling */
-.button-container {
-    display: flex;
-    gap: 2rem; /* Space between buttons */
-}
-
-/* Button styling */
-.choice-button {
-    padding: 20px 40px;
-    font-size: 2rem; /* Larger buttons */
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-/* Boy button color */
-.choice-button:first-child {
-    background: #ff4b2b; /* Reddish tone */
-}
-
-/* Girl button color */
-.choice-button:last-child {
-    background: #32cd32; /* Green tone */
-}
-
-/* Hover effect */
-.choice-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
+</html>
