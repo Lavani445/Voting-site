@@ -1,7 +1,7 @@
 /* General styling */
 body {
     font-family: Arial, sans-serif;
-    background: #4A90E2; /* Blue background */
+    background: #4A90E2;
     color: white;
     text-align: center;
     margin: 0;
@@ -14,7 +14,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* Title styling */
