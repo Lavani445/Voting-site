@@ -42,12 +42,3 @@ function countdown() {
     update();
 }
 countdown();
-
-// Handle Girl Registration
-document.addEventListener("submit", (e) => {
-    if (e.target.id === "registerForm") {
-        e.preventDefault();
-        const name = document.getElementById("girlName").value;
-        alert(`✅ Registered: ${name}`);
-    }
-});
