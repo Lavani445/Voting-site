@@ -27,35 +27,45 @@ h1 {
     font-size: 2rem;
 }
 
-/* Candidate box - Keep name and arrow on the same row */
+/* Ensure candidates and arrows align horizontally */
 .candidate {
-    display: flex;                  /* Align in a row */
-    justify-content: space-between;  /* Space between name and button */
-    align-items: center;             /* Vertically align */
-    margin: 10px 0;                  /* Space between candidates */
-    padding: 10px;
-    width: 80%;
-    border-bottom: 1px solid white;  /* Add separator line */
+    display: flex;              /* Align items in a row */
+    justify-content: space-between; /* Space between name and arrow */
+    align-items: center;        /* Vertically align */
+    margin: 10px 0;             /* Add spacing between candidates */
+    padding: 10px;              /* Padding for better layout */
+    width: 80%;                 /* Ensure consistent width */
+    border-bottom: 1px solid white; /* Separate candidates */
 }
 
-/* Candidate name */
+/* Candidate names - larger and left-aligned */
 .candidate span {
-    font-size: 1.5rem;       /* Adjust size of candidate names */
-    font-weight: bold;       /* Make names bold */
-    flex-grow: 1;            /* Allow name to stretch */
-    text-align: left;        /* Align name to the left */
+    font-size: 1.5rem;          /* Adjust name size */
+    font-weight: bold;          /* Make names bold */
+    flex-grow: 1;               /* Allow names to expand */
+    text-align: left;           /* Align names to the left */
 }
 
-/* Candidate voting button (arrow) */
+/* Voting arrow button */
 .candidate button {
-    font-size: 2rem;         /* Increase arrow size */
-    cursor: pointer;         /* Pointer on hover */
-    background: #FFD700;     /* Gold color for arrows */
-    border: none;            /* Remove border */
-    border-radius: 5px;      /* Rounded edges */
-    padding: 5px 15px;       /* Padding for better clickability */
+    font-size: 1.8rem;          /* Slightly smaller arrows */
+    cursor: pointer;            /* Pointer on hover */
+    border: none;               /* Remove border */
+    background: #FFD700;        /* Golden arrow color */
+    padding: 5px 15px;          /* Ensure clickable area */
+    border-radius: 50%;         /* Circular arrows */
+    color: #4A90E2;             /* Soft blue color */
     transition: transform 0.2s ease;
+    margin-left: 20px;          /* Space between name and arrow */
 }
+
+/* Arrow hover effect */
+.candidate button:hover {
+    transform: scale(1.2);      /* Slight zoom on hover */
+    background: white;          /* White arrow on hover */
+    color: #4A90E2;             /* Blue arrow color */
+}
+
 
 /* Arrow hover effect */
 .candidate button:hover {
