@@ -152,3 +152,11 @@ function displayComments() {
 
 // Load Comments on Page Load
 window.addEventListener('load', displayComments);
+const firebaseConfig = {
+  apiKey: "AIzaSyBCY1SI1hrU_Rk9N2bZoN8sueQkVr4Jya4",
+  authDomain: "vote-10.firebaseapp.com",
+  projectId: "vote-10",
+  storageBucket: "vote-10.firebasestorage.app",
+  messagingSenderId: "280465192209",
+  appId: "1:280465192209:web:e6fc25f4138c44da2008b0"
+};
