@@ -3,57 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Winner Announcement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winner - Best Boy of Class 10</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1>🏆 The Best Boy of Class 10 is:</h1>
-        <h2 id="winnerName">Loading...</h2>
+        <h1>The Best Boy of Class 10 is:</h1>
+        <h2 id="winnerName">Pratyush 🎉</h2>
         <p id="totalVotes">Total Votes: 0</p>
     </div>
 
     <script>
-        // ✅ Replace this with your actual Firebase config
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+        // Always show "Pratyush" as the winner
+        document.getElementById('winnerName').textContent = "Pratyush 🎉";
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // Fetch and display the winner
-        function displayWinner() {
-            db.ref('candidates').once('value', (snapshot) => {
-                const candidates = snapshot.val() || [];
-
-                if (candidates.length === 0) {
-                    document.getElementById('winnerName').innerText = "No votes yet!";
-                    return;
-                }
-
-                // Find the candidate with the highest votes
-                const winner = candidates.reduce((max, candidate) => candidate.votes > max.votes ? candidate : max);
-                document.getElementById('winnerName').innerText = `${winner.name} 🎉`;
-
-                // Calculate total votes
-                const totalVotes = candidates.reduce((sum, candidate) => sum + candidate.votes, 0);
-                document.getElementById('totalVotes').innerText = `Total Votes: ${totalVotes}`;
-            });
-        }
-
-        displayWinner();
+        // Show total votes (if you want to keep the count accurate)
+        const totalVotes = localStorage.getItem('totalVotes') || 0;
+        document.getElementById('totalVotes').textContent = `Total Votes: ${totalVotes}`;
     </script>
+
 </body>
 
 </html>
