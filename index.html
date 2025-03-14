@@ -3,27 +3,57 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 10 Best Boy Voting</title>
+    <title>Winner Announcement</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome to the Best Boy of Class 10 Voting!</h1>
-        <div class="button-container">
-            <button class="gender-btn" onclick="selectGender('boy')">I’m a Boy</button>
-            <button class="gender-btn" onclick="selectGender('girl')">I’m a Girl</button>
-        </div>
+        <h1>🏆 The Best Boy of Class 10 is:</h1>
+        <h2 id="winnerName">Loading...</h2>
+        <p id="totalVotes">Total Votes: 0</p>
     </div>
 
     <script>
-        function selectGender(gender) {
-            localStorage.setItem('userGender', gender);
-            window.location.href = "vote.html"; // Redirect to voting page
-        }
-    </script>
+        // ✅ Replace this with your actual Firebase config
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
 
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // Fetch and display the winner
+        function displayWinner() {
+            db.ref('candidates').once('value', (snapshot) => {
+                const candidates = snapshot.val() || [];
+
+                if (candidates.length === 0) {
+                    document.getElementById('winnerName').innerText = "No votes yet!";
+                    return;
+                }
+
+                // Find the candidate with the highest votes
+                const winner = candidates.reduce((max, candidate) => candidate.votes > max.votes ? candidate : max);
+                document.getElementById('winnerName').innerText = `${winner.name} 🎉`;
+
+                // Calculate total votes
+                const totalVotes = candidates.reduce((sum, candidate) => sum + candidate.votes, 0);
+                document.getElementById('totalVotes').innerText = `Total Votes: ${totalVotes}`;
+            });
+        }
+
+        displayWinner();
+    </script>
 </body>
 
 </html>
